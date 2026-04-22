@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CreateStoryWizard from '../components/CreateStoryWizard.tsx';
+---
+
+<Layout title="أنشئ قصتك — حكايتي">
+    <section class="section bg-cream-100">
+        <div class="container-page">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="inline-block bg-brand-50 text-brand-600 text-sm font-bold px-4 py-1.5 rounded-full mb-4">ابدأ السحر</span>
+                <h1 class="text-brand-800">أنشئ قصة طفلك في دقائق</h1>
+                <p class="mt-3 text-brand-600">ارفع الصورة، خصّص القصة، واستلم كتاباً أو فيلماً جاهزاً.</p>
+            </div>
+
+            <CreateStoryWizard client:load />
+
+            <div class="mt-12 grid sm:grid-cols-3 gap-4 text-center">
+                <div class="rounded-2xl bg-white border border-brand-50 p-5">
+                    <div class="text-3xl mb-2">🔒</div>
+                    <div class="font-bold text-brand-800">دفع آمن</div>
+                    <p class="text-sm text-brand-600 mt-1">بوابة دفع مشفرة بأحدث المعايير.</p>
+                </div>
+                <div class="rounded-2xl bg-white border border-brand-50 p-5">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <div class="font-bold text-brand-800">تسليم سريع</div>
+                    <p class="text-sm text-brand-600 mt-1">القصة جاهزة خلال دقائق بعد الدفع.</p>
+                </div>
+                <div class="rounded-2xl bg-white border border-brand-50 p-5">
+                    <div class="text-3xl mb-2">↩️</div>
+                    <div class="font-bold text-brand-800">ضمان الجودة</div>
+                    <p class="text-sm text-brand-600 mt-1">استبدال مجاني إن لم تعجبك النتيجة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

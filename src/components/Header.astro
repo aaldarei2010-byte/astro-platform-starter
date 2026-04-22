@@ -1,30 +1,43 @@
 ---
-import Logo from '../components/Logo.astro';
+import Logo from './Logo.astro';
 
 const navItems = [
-    { linkText: 'Home', href: '/' },
-    { linkText: 'Revalidation', href: '/revalidation' },
-    { linkText: 'Image CDN', href: '/image-cdn' },
-    { linkText: 'Edge Function', href: '/edge' },
-    { linkText: 'Blobs', href: '/blobs' }
+    { linkText: 'قصصنا', href: '/stories' },
+    { linkText: 'كيف يعمل', href: '/how-it-works' },
+    { linkText: 'المكتبة', href: '/library' },
+    { linkText: 'السحر', href: '/create' }
 ];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-16 sm:pt-12 sm:pb-24">
-    <a href="/">
-        <Logo />
-    </a>
-    {
-        !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-4 gap-y-1">
-                {navItems.map((item) => (
-                    <li>
-                        <a href={item.href} class="inline-block px-1.5 py-1 sm:px-3 sm:py-2">
-                            {item.linkText}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        )
-    }
-</nav>
+<header class="sticky top-0 z-40 bg-cream-100/90 backdrop-blur border-b border-brand-100">
+    <nav class="container-page flex items-center justify-between py-4 gap-6">
+        <a href="/" class="shrink-0" aria-label="حكايتي">
+            <Logo />
+        </a>
+
+        <ul class="hidden md:flex items-center gap-1 lg:gap-2 text-brand-700 font-semibold">
+            {
+                navItems.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                        <li>
+                            <a
+                                href={item.href}
+                                class={`px-3 py-2 rounded-full transition-colors ${isActive ? 'text-accent-500' : 'hover:text-accent-500'}`}
+                            >
+                                {item.linkText}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+
+        <div class="flex items-center gap-3">
+            <a href="/pricing" class="hidden sm:inline-block text-brand-700 font-semibold hover:text-accent-500">أسعار</a>
+            <a href="/create" class="btn btn-primary">ابدأ الآن</a>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,24 @@
+---
+interface Props {
+    title: string;
+    emoji: string;
+    gradient: string;
+    tag?: string;
+}
+const { title, emoji, gradient, tag = 'قصة مميزة' } = Astro.props;
+---
+
+<div class="card group overflow-hidden p-0">
+    <div class={`relative aspect-[4/3] ${gradient} flex items-center justify-center`}>
+        <span class="text-6xl drop-shadow-lg">{emoji}</span>
+        <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <div class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#1f5235"><path d="M8 5v14l11-7L8 5z"/></svg>
+            </div>
+        </div>
+        <span class="absolute top-3 right-3 bg-white/90 text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full">{tag}</span>
+    </div>
+    <div class="p-5">
+        <h3 class="text-brand-800 font-extrabold text-lg">{title}</h3>
+    </div>
+</div>

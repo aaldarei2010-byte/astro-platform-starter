@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const items = [
+    { title: 'سارة والأمانة', value: 'الصدق', env: 'المدرسة', emoji: '🍎', gradient: 'from-emerald-200 to-green-400', type: 'كتاب', duration: '10 صفحات' },
+    { title: 'مغامرة في الغابة', value: 'مساعدة الآخرين', env: 'الغابة', emoji: '🐻', gradient: 'from-lime-200 to-teal-400', type: 'فيلم', duration: '3 دقائق' },
+    { title: 'حارس الشاطئ', value: 'الاهتمام بالبيئة', env: 'البحر', emoji: '🐢', gradient: 'from-sky-200 to-cyan-400', type: 'فيلم', duration: '4 دقائق' },
+    { title: 'مكتبة الجد', value: 'حب القراءة', env: 'المنزل', emoji: '📚', gradient: 'from-amber-200 to-orange-400', type: 'كتاب', duration: '12 صفحة' },
+    { title: 'بطل الصحراء', value: 'الشجاعة', env: 'الصحراء', emoji: '🏜️', gradient: 'from-yellow-200 to-orange-500', type: 'فيلم', duration: '5 دقائق' },
+    { title: 'صديق جديد', value: 'التسامح', env: 'المدينة', emoji: '🤝', gradient: 'from-rose-200 to-pink-400', type: 'كتاب', duration: '8 صفحات' },
+    { title: 'شجرة الأمل', value: 'الإيمان بالنفس', env: 'الحديقة', emoji: '🌳', gradient: 'from-green-200 to-emerald-500', type: 'كتاب', duration: '10 صفحات' },
+    { title: 'رحلة القمر', value: 'الفضول', env: 'الفضاء', emoji: '🌙', gradient: 'from-indigo-200 to-purple-400', type: 'فيلم', duration: '3 دقائق' }
+];
+---
+
+<Layout title="المكتبة — حكايتي">
+    <section class="section bg-cream-100">
+        <div class="container-page">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="inline-block bg-brand-50 text-brand-600 text-sm font-bold px-4 py-1.5 rounded-full mb-4">المكتبة</span>
+                <h1 class="text-brand-800">قصص جاهزة لإلهامك</h1>
+                <p class="mt-3 text-brand-600">تصفح نماذج متنوعة من القصص والأفلام المتحركة التي أنشأتها عائلات قبلك.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button class="chip chip-active">الكل</button>
+                <button class="chip">كتب</button>
+                <button class="chip">أفلام</button>
+                <button class="chip">الصدق</button>
+                <button class="chip">البيئة</button>
+                <button class="chip">الشجاعة</button>
+                <button class="chip">القراءة</button>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {
+                    items.map((it) => (
+                        <div class="card p-0 overflow-hidden group">
+                            <div class={`relative aspect-[4/3] bg-gradient-to-br ${it.gradient} flex items-center justify-center`}>
+                                <span class="text-7xl drop-shadow-lg">{it.emoji}</span>
+                                <span class="absolute top-3 right-3 bg-white/95 text-brand-700 text-xs font-bold px-2.5 py-1 rounded-full">
+                                    {it.type}
+                                </span>
+                                <span class="absolute bottom-3 left-3 bg-brand-700/80 text-cream-100 text-xs font-bold px-2.5 py-1 rounded-full">
+                                    {it.duration}
+                                </span>
+                            </div>
+                            <div class="p-5">
+                                <h3 class="text-brand-800 font-extrabold text-lg mb-2">{it.title}</h3>
+                                <div class="flex flex-wrap gap-2 text-xs">
+                                    <span class="px-2 py-1 rounded-full bg-brand-50 text-brand-600 font-semibold">{it.value}</span>
+                                    <span class="px-2 py-1 rounded-full bg-cream-200 text-brand-600 font-semibold">{it.env}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="/create" class="btn btn-primary btn-lg">أنشئ قصتك الخاصة</a>
+            </div>
+        </div>
+    </section>
+</Layout>
