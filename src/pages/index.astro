@@ -1,11 +1,16 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { Hero } from '../components/site/Hero.tsx';
-import PlaceholderImage from '../components/site/PlaceholderImage.astro';
+import Photo from '../components/site/Photo.astro';
 
 const WHATSAPP = 'https://wa.me/971502314905';
 const INSTAGRAM = 'https://instagram.com/top.ten10';
 const MAP = 'https://maps.app.goo.gl/LsSvVrRdR56qeECN6?g_st=ipc';
+
+// Unsplash image helper. NOTE: these are representative stock photos — replace
+// the IDs with the shop's real product/photos when available.
+const img = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+const ABOUT_IMG = img('photo-1559925393-8be0ec4767c8', 1000);
 
 const nav = [
     { label: 'من نحن', href: '#about' },
@@ -18,11 +23,11 @@ const nav = [
 ];
 
 const shelves = [
-    { title: 'أكل شعبي إماراتي', desc: 'أطباق بيتية أصيلة بنكهة محلية تحفظ مذاق القوع.', kind: 'food' },
-    { title: 'حلويات منزلية', desc: 'حلا طازج من أيادي الأسر المنتجة لكل مناسبة.', kind: 'sweets' },
-    { title: 'قهوة ومشروبات', desc: 'قهوة عربية ومشروبات ساخنة وباردة بنكهات دافئة.', kind: 'coffee' },
-    { title: 'سندويتشات ووجبات خفيفة', desc: 'خيارات سريعة وشهية تناسب الزيارة العابرة.', kind: 'sandwich' },
-    { title: 'منتجات موسمية للمناسبات', desc: 'تشكيلات خاصة للأعياد والمناسبات على مدار العام.', kind: 'gift' }
+    { title: 'أكل شعبي إماراتي', desc: 'أطباق بيتية أصيلة بنكهة محلية تحفظ مذاق القوع.', kind: 'food', img: img('photo-1504674900247-0877df9cc836', 800) },
+    { title: 'حلويات منزلية', desc: 'حلا طازج من أيادي الأسر المنتجة لكل مناسبة.', kind: 'sweets', img: img('photo-1551024601-bec78aea704b', 800) },
+    { title: 'قهوة ومشروبات', desc: 'قهوة عربية ومشروبات ساخنة وباردة بنكهات دافئة.', kind: 'coffee', img: img('photo-1495474472287-4d71bcdd2085', 800) },
+    { title: 'سندويتشات ووجبات خفيفة', desc: 'خيارات سريعة وشهية تناسب الزيارة العابرة.', kind: 'sandwich', img: img('photo-1553909489-cd47e0907980', 800) },
+    { title: 'منتجات موسمية للمناسبات', desc: 'تشكيلات خاصة للأعياد والمناسبات على مدار العام.', kind: 'gift', img: img('photo-1488477181946-6428a0291777', 800) }
 ];
 
 const stats = [
@@ -51,12 +56,12 @@ const stories = [
 ];
 
 const galleryItems = [
-    { label: 'رفوف المنتجات', kind: 'package' },
-    { label: 'حلويات منزلية', kind: 'sweets' },
-    { label: 'قهوة ومشروبات', kind: 'coffee' },
-    { label: 'أكل شعبي', kind: 'food' },
-    { label: 'تغليف المنتجات', kind: 'gift' },
-    { label: 'المحل من الخارج', kind: 'store' }
+    { label: 'رفوف المنتجات', kind: 'package', img: img('photo-1604719312566-8912e9227c6a', 800) },
+    { label: 'حلويات منزلية', kind: 'sweets', img: img('photo-1565958011703-44f9829ba187', 700) },
+    { label: 'قهوة ومشروبات', kind: 'coffee', img: img('photo-1447933601403-0c6688de566e', 700) },
+    { label: 'أكل شعبي', kind: 'food', img: img('photo-1414235077428-338989a2e8c0', 700) },
+    { label: 'تغليف المنتجات', kind: 'gift', img: img('photo-1607478900766-efe13248b125', 700) },
+    { label: 'المحل من الخارج', kind: 'store', img: img('photo-1517248135467-4c7edcad34c4', 700) }
 ];
 
 // Placeholder brand slots (logos to be added later). Topten Sweet is the shop
@@ -117,7 +122,7 @@ const brandSlots = Array.from({ length: 8 }, (_, i) => `علامة منزلية 
                         الوصول إلى زبائن أكثر، وبناء مصدر دخل مستدام.
                     </p>
                 </div>
-                <PlaceholderImage kind="store" label="توب تن — القوع" note="ضع هنا صورة المحل" ratio="aspect-[4/3]" class="shadow-xl shadow-coffee/10" />
+                <Photo src={ABOUT_IMG} alt="محل توب تن في القوع" kind="store" label="توب تن — القوع" ratio="aspect-[4/3]" class="shadow-xl shadow-coffee/10" />
             </div>
         </section>
 
@@ -134,7 +139,7 @@ const brandSlots = Array.from({ length: 8 }, (_, i) => `علامة منزلية 
                     {
                         shelves.map((item) => (
                             <article class="reveal group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                                <PlaceholderImage kind={item.kind as any} label={item.title} ratio="aspect-[4/3]" class="rounded-none" />
+                                <Photo src={item.img} alt={item.title} kind={item.kind as any} label={item.title} ratio="aspect-[4/3]" class="rounded-none" />
                                 <div class="p-5">
                                     <h3 class="font-display text-xl font-extrabold text-coffee">{item.title}</h3>
                                     <p class="mt-2 leading-relaxed text-muted-foreground">{item.desc}</p>
@@ -241,7 +246,9 @@ const brandSlots = Array.from({ length: 8 }, (_, i) => `علامة منزلية 
                 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
                     {
                         galleryItems.map((item, i) => (
-                            <PlaceholderImage
+                            <Photo
+                                src={item.img}
+                                alt={item.label}
                                 kind={item.kind as any}
                                 label={item.label}
                                 ratio={i % 5 === 0 ? 'aspect-square sm:row-span-2 sm:aspect-[3/4]' : 'aspect-square'}
