@@ -94,9 +94,11 @@ const MAX_SCROLL = 3000; // Virtual scroll range
 
 // Real "Top Ten" (توب تن) product photos — chocolates, desserts, kunafa,
 // savoury dishes, drinks and dates — served from /public/images/menu.
+// BASE_URL is "/" for the Netlify build and "/astro-platform-starter/" for the
+// GitHub Pages build, so assets resolve correctly under either base path.
 const IMAGES = Array.from(
     { length: 20 },
-    (_, i) => `/images/menu/menu-${String(i + 1).padStart(2, "0")}.jpg`,
+    (_, i) => `${import.meta.env.BASE_URL}images/menu/menu-${String(i + 1).padStart(2, "0")}.jpg`,
 );
 
 // Helper for linear interpolation
