@@ -1,0 +1,466 @@
+---
+import {
+    GraduationCap,
+    Compass,
+    Cpu,
+    Landmark,
+    Building2,
+    School,
+    Users,
+    Globe,
+    Check,
+    Mail,
+    Phone,
+    MapPin,
+    MessageCircle,
+    Languages,
+    BadgeCheck,
+    Target,
+    Handshake,
+    Sparkles,
+    LineChart,
+    Menu
+} from 'lucide-react';
+import { content, CONTACT, type Lang } from '../lib/qoura';
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+const home = lang === 'ar' ? '/' : '/en/';
+
+const serviceIcons = [GraduationCap, Compass, Cpu];
+const audienceIcons = [Landmark, Building2, School, Users, Globe];
+const whyIcons = [Languages, Landmark, BadgeCheck, Globe, Sparkles, Handshake];
+const iconProps = { strokeWidth: 1.5 };
+---
+
+<!-- ===== Header ===== -->
+<header class="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur">
+    <div class="container-q flex h-16 items-center justify-between gap-4 sm:h-20">
+        <a href={home} class="shrink-0" aria-label="Qoura AI">
+            <img src="/brand/logo-black.png" alt="قرى Qoura AI" class="h-8 w-auto sm:h-9" />
+        </a>
+        <nav class="hidden items-center gap-6 text-sm font-medium lg:flex">
+            {t.nav.map((item) => <a href={item.href} class="text-muted-foreground transition-colors hover:text-foreground">{item.label}</a>)}
+        </nav>
+        <div class="flex items-center gap-2 sm:gap-3">
+            <a
+                href={t.langSwitch.href}
+                class:list={['rounded-full border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-foreground hover:text-foreground', lang === 'en' && 'font-sans']}
+            >
+                {t.langSwitch.label}
+            </a>
+            <a href="#contact" class="hidden rounded-full bg-orange px-5 py-2 text-sm font-bold text-white transition-opacity hover:opacity-90 sm:block">
+                {t.cta}
+            </a>
+            <details class="relative lg:hidden">
+                <summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-border [&::-webkit-details-marker]:hidden">
+                    <Menu {...iconProps} size={20} />
+                </summary>
+                <nav class="absolute end-0 top-12 z-50 flex w-56 flex-col gap-1 rounded-2xl border border-border bg-white p-3 shadow-xl">
+                    {t.nav.map((item) => <a href={item.href} class="rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted">{item.label}</a>)}
+                    <a href="#contact" class="mt-1 rounded-lg bg-orange px-3 py-2 text-center text-sm font-bold text-white">{t.cta}</a>
+                </nav>
+            </details>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- ===== Hero ===== -->
+    <section class="bg-ink text-white">
+        <div class="container-q py-20 sm:py-28">
+            <div class="max-w-3xl">
+                <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1.5 text-sm text-white/80">
+                    <span class="inline-block h-2 w-2 rounded-full bg-orange"></span>
+                    {t.hero.badge}
+                </p>
+                <h1 class="text-4xl leading-snug font-bold sm:text-5xl md:text-6xl md:leading-tight">{t.hero.title}</h1>
+                <span class="brand-line my-8"></span>
+                <p class="max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl">{t.hero.sub}</p>
+                <div class="mt-10 flex flex-wrap items-center gap-4">
+                    <a href="#contact" class="rounded-full bg-orange px-8 py-3.5 text-base font-bold text-white transition-opacity hover:opacity-90">
+                        {t.hero.primary}
+                    </a>
+                    <a
+                        href="#services"
+                        class="rounded-full border border-white/30 px-8 py-3.5 text-base font-medium text-white transition-colors hover:border-orange hover:text-orange"
+                    >
+                        {t.hero.secondary}
+                    </a>
+                </div>
+                <p class="mt-10 flex items-center gap-2 text-sm text-white/50">
+                    <Target {...iconProps} size={16} className="text-orange" />
+                    {t.hero.note}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Trust bar ===== -->
+    <section class="border-b border-border bg-white">
+        <div class="container-q py-10">
+            <p class="mb-6 text-center text-sm font-medium tracking-wide text-muted-foreground">{t.trustedTitle}</p>
+            <ul class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+                {t.trusted.map((name) => <li class="text-base font-bold text-foreground/80 sm:text-lg">{name}</li>)}
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== Impact numbers ===== -->
+    <section id="impact" class="bg-white">
+        <div class="container-q py-16 sm:py-20">
+            <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+                {
+                    t.stats.map((s) => (
+                        <div class="text-center">
+                            <p class="font-latin text-4xl font-extrabold text-orange sm:text-5xl" dir="ltr">
+                                {s.value}
+                            </p>
+                            <p class="mt-3 text-sm text-muted-foreground sm:text-base">{s.label}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="about" class="bg-muted">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <div class="grid items-start gap-12 lg:grid-cols-2">
+                <div>
+                    <h2 class="text-3xl font-bold sm:text-4xl">{t.about.heading}</h2>
+                    <p class="font-latin mt-1 text-sm text-muted-foreground">{t.about.sub}</p>
+                    <p class="mt-8 leading-relaxed text-foreground/90">{t.about.p1}</p>
+                    <p class="mt-4 leading-relaxed text-muted-foreground">{t.about.p2}</p>
+                </div>
+                <div class="rounded-2xl bg-ink p-8 text-white sm:p-10">
+                    <img src="/brand/logo-white.png" alt="" class="h-12 w-auto opacity-95" />
+                    <span class="brand-line-sm my-6"></span>
+                    <p class="leading-relaxed text-white/80">{t.about.nameStory}</p>
+                </div>
+            </div>
+
+            <div class="mt-14 grid gap-6 md:grid-cols-2">
+                <div class="rounded-2xl border border-border bg-white p-8">
+                    <h3 class="flex items-center gap-3 text-xl font-bold">
+                        <Target {...iconProps} size={24} className="text-orange" />
+                        {t.vision.visionTitle}
+                    </h3>
+                    <p class="mt-4 leading-relaxed text-muted-foreground">{t.vision.vision}</p>
+                </div>
+                <div class="rounded-2xl border border-border bg-white p-8">
+                    <h3 class="flex items-center gap-3 text-xl font-bold">
+                        <LineChart {...iconProps} size={24} className="text-orange" />
+                        {t.vision.missionTitle}
+                    </h3>
+                    <p class="mt-4 leading-relaxed text-muted-foreground">{t.vision.mission}</p>
+                </div>
+            </div>
+
+            <h3 class="mt-14 text-xl font-bold">{t.valuesTitle}</h3>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                {
+                    t.values.map((v) => (
+                        <div class="rounded-xl border border-border bg-white p-5">
+                            <span class="brand-line-sm mb-3" />
+                            <p class="font-bold">{v.title}</p>
+                            <p class="mt-2 text-sm text-muted-foreground">{v.desc}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Services ===== -->
+    <section id="services" class="bg-white">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.services.heading}</h2>
+            <p class="mt-3 text-lg text-muted-foreground">{t.services.sub}</p>
+            <div class="mt-12 grid gap-6 lg:grid-cols-3">
+                {
+                    t.services.items.map((s, i) => {
+                        const Icon = serviceIcons[i];
+                        const featured = i === 0;
+                        return (
+                            <article
+                                class:list={[
+                                    'flex flex-col rounded-2xl p-8',
+                                    featured ? 'bg-ink text-white ring-2 ring-orange' : 'border border-border bg-white'
+                                ]}
+                            >
+                                <div class="flex items-start justify-between gap-4">
+                                    <Icon {...iconProps} size={36} className="text-orange" />
+                                    {s.tag && <span class="rounded-full bg-orange px-3 py-1 text-xs font-bold text-white">{s.tag}</span>}
+                                </div>
+                                <h3 class="mt-6 text-2xl font-bold">{s.title}</h3>
+                                <p class:list={['font-latin mt-1 text-sm', featured ? 'text-orange' : 'text-muted-foreground']}>{s.en}</p>
+                                <p class:list={['mt-5 leading-relaxed', featured ? 'text-white/75' : 'text-muted-foreground']}>{s.desc}</p>
+                                <ul class="mt-6 space-y-3">
+                                    {s.points.map((p) => (
+                                        <li class="flex items-start gap-3 text-sm">
+                                            <Check {...iconProps} size={18} className="mt-0.5 shrink-0 text-orange" />
+                                            <span class:list={[featured ? 'text-white/90' : 'text-foreground/90']}>{p}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </article>
+                        );
+                    })
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Training tracks ===== -->
+    <section id="tracks" class="bg-muted">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.tracks.heading}</h2>
+            <p class="mt-3 text-lg text-muted-foreground">{t.tracks.sub}</p>
+            <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {
+                    t.tracks.items.map((track, i) => (
+                        <div class="rounded-2xl border border-border bg-white p-6 transition-shadow hover:shadow-md">
+                            <p class="font-latin text-sm font-extrabold text-orange" dir="ltr">
+                                {String(i + 1).padStart(2, '0')}
+                            </p>
+                            <h3 class="mt-3 text-lg font-bold">{track.title}</h3>
+                            <p class="mt-2 text-sm text-muted-foreground">{track.desc}</p>
+                        </div>
+                    ))
+                }
+            </div>
+            <p class="mt-10 rounded-xl border-s-4 border-orange bg-orange-soft p-5 font-medium text-foreground/90">
+                {t.tracks.outcome}
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== Audiences ===== -->
+    <section class="bg-white">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.audiences.heading}</h2>
+            <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+                {
+                    t.audiences.items.map((a, i) => {
+                        const Icon = audienceIcons[i];
+                        return (
+                            <div class="rounded-2xl border border-border p-6 text-center">
+                                <Icon {...iconProps} size={32} className="mx-auto text-orange" />
+                                <h3 class="mt-4 font-bold">{a.title}</h3>
+                                <p class="mt-2 text-sm text-muted-foreground">{a.desc}</p>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Methodology ===== -->
+    <section id="methodology" class="bg-ink text-white">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.methodology.heading}</h2>
+            <p class="mt-3 text-lg text-white/60">{t.methodology.sub}</p>
+            <ol class="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+                {
+                    t.methodology.steps.map((step, i) => (
+                        <li class="relative">
+                            <p class="font-latin text-5xl font-extrabold text-orange" dir="ltr">
+                                {String(i + 1).padStart(2, '0')}
+                            </p>
+                            <h3 class="mt-4 text-lg font-bold">{step.title}</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-white/60">{step.desc}</p>
+                        </li>
+                    ))
+                }
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== Why Qoura ===== -->
+    <section class="bg-white">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.why.heading}</h2>
+            <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {
+                    t.why.items.map((w, i) => {
+                        const Icon = whyIcons[i];
+                        return (
+                            <div class="flex items-start gap-4 rounded-2xl border border-border p-6">
+                                <Icon {...iconProps} size={28} className="mt-1 shrink-0 text-orange" />
+                                <div>
+                                    <h3 class="font-bold">{w.title}</h3>
+                                    <p class="mt-2 text-sm text-muted-foreground">{w.desc}</p>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Partners & institutional presence ===== -->
+    <section id="partners" class="bg-muted">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.presence.heading}</h2>
+            <div class="mt-12 grid gap-6 md:grid-cols-2">
+                {
+                    t.presence.items.map((p) => (
+                        <article class="rounded-2xl border border-border bg-white p-8">
+                            <h3 class="text-xl font-bold">{p.title}</h3>
+                            <span class="brand-line-sm my-4" />
+                            <p class="leading-relaxed text-muted-foreground">{p.desc}</p>
+                        </article>
+                    ))
+                }
+            </div>
+            <ul class="mt-10 flex flex-wrap gap-3">
+                {
+                    t.trusted.map((name) => (
+                        <li class="rounded-full border border-border-strong bg-white px-5 py-2 text-sm font-medium">{name}</li>
+                    ))
+                }
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== CTA band ===== -->
+    <section class="bg-orange">
+        <div class="container-q flex flex-col items-start justify-between gap-8 py-16 sm:py-20 lg:flex-row lg:items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-white sm:text-4xl">{t.ctaBand.title}</h2>
+                <p class="mt-3 text-lg text-white/85">{t.ctaBand.sub}</p>
+            </div>
+            <a href="#contact" class="shrink-0 rounded-full bg-ink px-10 py-4 text-base font-bold text-white transition-transform hover:scale-105">
+                {t.ctaBand.button}
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact" class="bg-ink text-white">
+        <div class="container-q py-20 sm:py-24">
+            <span class="brand-line mb-6"></span>
+            <h2 class="text-3xl font-bold sm:text-4xl">{t.contact.heading}</h2>
+            <p class="mt-3 text-lg text-white/60">{t.contact.sub}</p>
+            <div class="mt-14 grid gap-14 lg:grid-cols-2">
+                <ul class="space-y-8">
+                    <li class="flex items-center gap-5">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20"><Mail {...iconProps} size={22} className="text-orange" /></span>
+                        <div>
+                            <p class="text-sm text-white/50">{t.contact.email}</p>
+                            <a href={`mailto:${CONTACT.email}`} class="font-latin text-lg font-semibold hover:text-orange">{CONTACT.email}</a>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-5">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20"><Phone {...iconProps} size={22} className="text-orange" /></span>
+                        <div>
+                            <p class="text-sm text-white/50">{t.contact.phone}</p>
+                            <a href={CONTACT.phoneHref} class="font-latin text-lg font-semibold hover:text-orange" dir="ltr">{CONTACT.phone}</a>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-5">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20"><MessageCircle {...iconProps} size={22} className="text-orange" /></span>
+                        <div>
+                            <p class="text-sm text-white/50">{t.contact.whatsapp}</p>
+                            <a href={CONTACT.whatsapp} target="_blank" rel="noopener" class="text-lg font-semibold hover:text-orange">{t.contact.whatsappCta}</a>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-5">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20"><MapPin {...iconProps} size={22} className="text-orange" /></span>
+                        <div>
+                            <p class="text-sm text-white/50">{t.contact.location}</p>
+                            <p class="text-lg font-semibold">{t.contact.locationValue}</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <form name="contact" method="POST" data-netlify="true" class="space-y-4">
+                    <input type="hidden" name="form-name" value="contact" />
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <input
+                            type="text"
+                            name="name"
+                            required
+                            placeholder={t.contact.form.name}
+                            class="w-full rounded-xl border border-white/20 bg-white/5 px-5 py-3.5 text-white placeholder-white/40 focus:border-orange focus:outline-none"
+                        />
+                        <input
+                            type="text"
+                            name="entity"
+                            placeholder={t.contact.form.entity}
+                            class="w-full rounded-xl border border-white/20 bg-white/5 px-5 py-3.5 text-white placeholder-white/40 focus:border-orange focus:outline-none"
+                        />
+                    </div>
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder={t.contact.form.email}
+                        class="w-full rounded-xl border border-white/20 bg-white/5 px-5 py-3.5 text-white placeholder-white/40 focus:border-orange focus:outline-none"
+                    />
+                    <select
+                        name="interest"
+                        class="w-full rounded-xl border border-white/20 bg-white/5 px-5 py-3.5 text-white/80 focus:border-orange focus:outline-none [&>option]:text-black"
+                    >
+                        {t.contact.form.interests.map((o) => <option value={o}>{o}</option>)}
+                    </select>
+                    <textarea
+                        name="message"
+                        rows={4}
+                        placeholder={t.contact.form.message}
+                        class="w-full rounded-xl border border-white/20 bg-white/5 px-5 py-3.5 text-white placeholder-white/40 focus:border-orange focus:outline-none"></textarea>
+                    <button type="submit" class="w-full rounded-xl bg-orange py-4 text-base font-bold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-12">
+                        {t.contact.form.submit}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="border-t border-white/10 bg-ink text-white">
+    <div class="container-q grid gap-12 py-16 lg:grid-cols-3">
+        <div>
+            <img src="/brand/logo-white.png" alt="قرى Qoura AI" class="h-10 w-auto" />
+            <span class="brand-line-sm my-5"></span>
+            <p class="max-w-sm text-sm leading-relaxed text-white/60">{t.footer.tagline}</p>
+        </div>
+        <div>
+            <h3 class="font-bold">{t.footer.quickLinks}</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/60">
+                {t.nav.map((item) => <li><a href={item.href} class="hover:text-orange">{item.label}</a></li>)}
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-bold">{t.footer.contactTitle}</h3>
+            <ul class="mt-5 space-y-3 text-sm text-white/60">
+                <li><a href={`mailto:${CONTACT.email}`} class="font-latin hover:text-orange">{CONTACT.email}</a></li>
+                <li><a href={CONTACT.phoneHref} class="font-latin hover:text-orange" dir="ltr">{CONTACT.phone}</a></li>
+                <li>{t.contact.locationValue}</li>
+                <li class="font-latin">{CONTACT.site}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-white/10">
+        <div class="container-q flex flex-col items-center justify-between gap-3 py-6 text-center text-xs text-white/40 sm:flex-row">
+            <p>{t.footer.rights}</p>
+            <span class="brand-line-sm"></span>
+        </div>
+    </div>
+</footer>

@@ -1,134 +1,54 @@
 @import 'tailwindcss';
 
 @theme {
-    /* Arabic-first typography */
-    --font-sans: 'Tajawal', 'Cairo', 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-display: 'Cairo', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+    /* Qoura AI brand — Noto Kufi Arabic (AR) + Inter (EN/numbers) */
+    --font-sans: 'Noto Kufi Arabic', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-latin: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 
-    /* shadcn/ui design tokens — warm "Top Ten" brand palette
-       (coffee, dates, sand, gold, white) */
-    --color-background: #faf6ef;
-    --color-foreground: #2b2118;
-    --color-card: #ffffff;
-    --color-card-foreground: #2b2118;
-    --color-popover: #ffffff;
-    --color-popover-foreground: #2b2118;
-    --color-primary: #a6783f; /* coffee / caramel */
-    --color-primary-foreground: #fff8ee;
-    --color-primary-content: #fff8ee; /* used by legacy .btn */
-    --color-secondary: #ece0c8; /* sand */
-    --color-secondary-foreground: #4a3826;
-    --color-muted: #f1e9d9;
-    --color-muted-foreground: #7a6a55;
-    --color-accent: #c8a24b; /* gold */
-    --color-accent-foreground: #2b2118;
-    --color-destructive: #b3261e;
-    --color-destructive-foreground: #fff8ee;
-    --color-border: #e4d8c2;
-    --color-input: #e4d8c2;
-    --color-ring: #c8a24b;
-    --color-complementary: #355c7d;
+    /* Qoura AI brand palette (Brand Guidelines v1.0) */
+    --color-background: #ffffff;
+    --color-foreground: #000000;
+    --color-primary: #ff7a00; /* Qoura Orange */
+    --color-primary-foreground: #ffffff;
+    --color-muted: #f2f2f2; /* Light Gray — section backgrounds */
+    --color-muted-foreground: #545454; /* Dark Gray — secondary text */
+    --color-border: #e6e6e6;
+    --color-border-strong: #cccccc;
 
-    /* extra brand shades */
-    --color-coffee: #6f4e2e;
-    --color-date: #5a3a22;
-    --color-sand: #e9dcc5;
-    --color-gold: #c8a24b;
-    --color-cream: #fbf7f0;
-
-    --background-image-noise: linear-gradient(
-            to bottom,
-            color-mix(in oklab, var(--color-gray-950) 0%, transparent),
-            color-mix(in oklab, var(--color-gray-950) 100%, transparent)
-        ),
-        url('/images/noise.png');
+    --color-ink: #000000;
+    --color-ink-soft: #141414;
+    --color-orange: #ff7a00;
+    --color-orange-soft: #fff1e5;
 }
 
 @layer base {
-    h1 {
-        @apply text-4xl font-bold tracking-tight sm:text-5xl;
+    html {
+        scroll-behavior: smooth;
     }
-
-    h2 {
-        @apply text-2xl font-bold sm:text-3xl;
+    body {
+        @apply bg-background text-foreground font-sans antialiased;
+        text-rendering: optimizeLegibility;
     }
-
-    a:not(.btn) {
-        @apply underline transition hover:opacity-80;
+    /* Arabic needs taller line-height at equal visual weight */
+    :lang(ar) body,
+    [lang='ar'] {
+        line-height: 1.85;
     }
-
-    pre {
-        @apply p-6 overflow-x-auto rounded-lg;
-    }
-
-    :not(pre) > code {
-        @apply px-1 py-0.5 font-mono rounded bg-gray-900 text-primary;
-        font-size: 0.9em;
+    ::selection {
+        background: #ff7a00;
+        color: #fff;
     }
 }
 
 @layer components {
-    .markdown {
-        > * {
-            @apply my-6;
-        }
-
-        :where(h1, h2) {
-            @apply mt-12 mb-6;
-        }
-
-        > :first-child {
-            @apply mt-0;
-        }
-
-        > :last-child {
-            @apply mb-0;
-        }
+    /* The orange line — core graphic element of the Qoura identity */
+    .brand-line {
+        @apply block h-[3px] w-16 bg-orange;
     }
-
-    .btn {
-        @apply inline-flex items-center justify-center gap-2 bg-primary text-primary-content cursor-pointer text-center font-semibold no-underline transition-colors;
-        padding: var(--btn-py, 0.875rem) var(--btn-px, 1.25rem);
-        font-size: var(--btn-font-size, 0.875rem);
-        border-radius: var(--btn-border-radius, 0.25rem);
-
-        &:hover {
-            @apply bg-primary/85;
-        }
-
-        &:disabled {
-            @apply text-gray-400 bg-gray-700;
-        }
+    .brand-line-sm {
+        @apply block h-[3px] w-8 bg-orange;
     }
-
-    .btn-lg {
-        --btn-font-size: 1.125rem;
-        --btn-px: 1.5rem;
-        --btn-py: 1.125rem;
-    }
-}
-
-@layer utilities {
-    /* Lightweight scroll-reveal — toggled by an IntersectionObserver */
-    .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition:
-            opacity 0.7s ease,
-            transform 0.7s ease;
-        will-change: opacity, transform;
-    }
-
-    .reveal.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .reveal {
-            opacity: 1;
-            transform: none;
-            transition: none;
-        }
+    .container-q {
+        @apply mx-auto w-full max-w-6xl px-6 sm:px-10;
     }
 }

@@ -1,34 +1,61 @@
 ---
-import '../../src/styles/globals.css';
+import '../styles/globals.css';
 import '@fontsource-variable/inter/wght.css';
-import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import '@fontsource/noto-kufi-arabic/400.css';
+import '@fontsource/noto-kufi-arabic/500.css';
+import '@fontsource/noto-kufi-arabic/700.css';
+import { content, CONTACT, type Lang } from '../lib/qoura';
 
 interface Props {
-    title: string;
+    lang: Lang;
 }
 
-const { title } = Astro.props;
+const { lang } = Astro.props;
+const t = content[lang];
+const site = 'https://www.qoura.ai';
+
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: lang === 'ar' ? 'قرى للذكاء الاصطناعي' : 'Qoura AI',
+    alternateName: 'Qoura AI',
+    url: site,
+    logo: `${site}/brand/icon-512.png`,
+    email: CONTACT.email,
+    telephone: '+971507300052',
+    address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Abu Dhabi',
+        addressCountry: 'AE'
+    },
+    description: t.meta.description
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={t.htmlLang} dir={t.dir}>
     <head>
         <meta charset="UTF-8" />
-        <title>{title}</title>
-        <meta name="viewport" content="width=device-width" />
+        <title>{t.meta.title}</title>
+        <meta name="description" content={t.meta.description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+        <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
+        <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+        <link rel="alternate" hreflang="ar" href={`${site}/`} />
+        <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+        <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={t.meta.title} />
+        <meta property="og:description" content={t.meta.description} />
+        <meta property="og:image" content={`${site}/brand/og-image.jpg`} />
+        <meta property="og:locale" content={lang === 'ar' ? 'ar_AE' : 'en_US'} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="theme-color" content="#000000" />
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     </head>
-    <body class="antialiased text-white bg-complementary">
-        <div class="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
-                <Header />
-                <main class="grow"><slot /></main>
-                <Footer />
-            </div>
-        </div>
+    <body class:list={[lang === 'en' && 'font-latin']}>
+        <slot />
     </body>
 </html>
